@@ -11,16 +11,13 @@ api_level_arch_detect
 MAGISKTMP="$(magisk --path)" || MAGISKTMP=/sbin
 
 PKGNAME="$(grep_prop package "$MODPATH/module.prop")"
-APPNAME="YouTube"
 STOCKAPPVER=$(dumpsys package $PKGNAME | grep versionName | cut -d= -f 2 | sed -n '1p')
 RVAPPVER="$(grep_prop version "$MODPATH/module.prop")"
-URL="https://www.apkmirror.com/apk/google-inc/youtube/youtube-$(echo -n "$RVAPPVER" | tr "." "-")-release/"
 
 
 if [ ! -d "/proc/1/root/data/data/$PKGNAME" ]
 then
-	ui_print "- $APPNAME app is not installed"
-	am start -a android.intent.action.VIEW -d "$URL" &>/dev/null
+	ui_print "- $PKGNAME app is not installed"
 	abort "- Aborting installation !!"
 fi
 
@@ -34,23 +31,10 @@ fi
 
 if [ "$STOCKAPPVER" != "$RVAPPVER" ]
 then
-	ui_print "- Installed $APPNAME version = $STOCKAPPVER"
-	ui_print "- $APPNAME Revanced version = $RVAPPVER"
+	ui_print "- Installed $PKGNAME version = $STOCKAPPVER"
+	ui_print "- $PKGNAME Revanced version = $RVAPPVER"
 	ui_print "- App Version Mismatch !!"
-  am start -a android.intent.action.VIEW -d "$URL" &>/dev/null
 	abort "- Aborting installation !!"
 fi
-
-ui_print "- Install sqlite3 plug-in for detach"
-mkdir "$MODPATH/bin"
-unzip -oj "$MODPATH/sqlite3.zip" "$ABI/sqlite3" -d "$MODPATH/bin" &>/dev/null || abort "! Unzip failed"
-chmod 755 "$MODPATH/bin/sqlite3"
-rm -rf "$MODPATH/sqlite3.zip"
-
-# Disable battery optimization for YouTube ReVanced
-sleep 1
-ui_print "- Disable Battery Optimization for YouTube ReVanced"
-dumpsys deviceidle whitelist +$PKGNAME > /dev/null 2>&1
-
 
 ui_print "- Install Successful !!"

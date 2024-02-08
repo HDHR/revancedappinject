@@ -1,7 +1,7 @@
-id=ytrevancedinject
-name=YouTube ReVanced
-package=com.google.android.youtube
-version=18.01.36
-versionCode=4
-author=HuskyDG
-description=YouTube ReVanced repacked by HuskyDG. Require Magisk Process Monitor tool v2.1+ for Dynamic Mount
+id=xrevancedinject
+name=x ReVanced
+package=x.x.x.x
+version=x.x
+versionCode=1
+author=HDHR
+description=Mount ReVanced modified apps dynamically. Requires Magisk Process Monitor tool v2.1+ for Dynamic Mount

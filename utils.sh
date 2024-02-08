@@ -10,7 +10,7 @@ check_version(){
   STOCKAPPVER=$(dumpsys package $PACKAGE_NAME | grep versionName | cut -d= -f 2 | sed -n '1p')
   RVAPPVER=$(grep_prop version "$MODDIR/module.prop")
   if [ "$STOCKAPPVER" != "$RVAPPVER" ]; then
-      W=$(sed -E 's/^description=(\[.*][[:space:]]*)?/description=[ ❌ The current version of YouTube does not match. ] /g' "$MODDIR/module.prop")
+      W=$(sed -E 's/^description=(\[.*][[:space:]]*)?/description=[ ❌ The current version of App does not match. ] /g' "$MODDIR/module.prop")
       echo -n "$W" >"$TMPFILE"
 	  return 1
   fi
